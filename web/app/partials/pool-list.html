@@ -48,44 +48,27 @@
       <td>{{pool.trigger}}</td>
       <td>{{pool.coverage | currency}}</td>
       <td>{{pool.premium | currency}}</td>
+      <td>
+        <a href="" ng-click="poolList.openEnerPoolModal(pool)">Enter</a>
+      </td>
     </tr>
   </tbody>
 </table>
 
-<!-- <script type="text/ng-template" id="create-pool-modal.html"> -->
-<!-- <div class="modal-header"> -->
-<!-- <h3 class="modal-title">Issue Pool</h3> -->
-<!-- </div> -->
-<!-- <form name="modalForm"> -->
-<!-- <div class="modal-body"> -->
-<!-- <div class="form-group"> -->
-<!-- <label>principal in multiples of $100,000</label> -->
-<!-- <input class="form-control" required="required" -->
-<!-- type="number" min="100000" max="10000000" step="100000" -->
-<!-- ng-model="poolList.pool.principal"> -->
-<!-- </div> -->
-<!-- <div class="form-group"> -->
-<!-- <label>term in months</label> -->
-<!-- <input class="form-control" required="required" -->
-<!-- type="number" min="1" max="60" -->
-<!-- ng-model="poolList.pool.term"> -->
-<!-- </div> -->
-<!-- <div class="form-group"> -->
-<!-- <label>yearly rate in basis points</label> -->
-<!-- <input class="form-control" required="required" -->
-<!-- type="number" min="1" max="10000" -->
-<!-- ng-model="poolList.pool.rate"> -->
-<!-- </div> -->
-<!-- <div class="form-group"> -->
-<!-- <label>catastrophe trigger</label> -->
-<!-- <select class="form-control" -->
-<!-- ng-model="poolList.pool.trigger" ng-options="o for o in poolList.triggers"></select> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="modal-footer"> -->
-<!-- <button class="btn btn-primary" type="button" -->
-<!-- ng-click="poolList.ok()" ng-disabled="modalForm.$invalid">Issue</button> -->
-<!-- <button class="btn btn-warning" type="button" ng-click="poolList.cancel()">Cancel</button> -->
-<!-- </div> -->
-<!-- </form> -->
-<!-- </script> -->
+<script type="text/ng-template" id="enter-pool-modal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Enter Pool</h3>
+  </div>
+  <form name="modalForm">
+    <div class="modal-body">
+      <h3>"{{enterPool.pool.name}}" Terms</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem sunt reiciendis ab suscipit impedit officiis? Sit unde quos modi voluptatem eveniet, maiores earum, magni. Inventore nihil praesentium dolore laboriosam quas.
+      </p>
+      <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="enterPool.enter(enterPool.pool)">Enter</button>
+        <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
+      </div>
+    </div>
+  </form>
+</script>

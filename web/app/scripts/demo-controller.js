@@ -3,7 +3,7 @@
  * @classdesc
  * @ngInject
  */
-function DemoController($log, $q, $interval, $timeout, 
+function DemoController($log, $q, $interval, $timeout, $state,
     cfg, TimeService, UserService, PeerService) {
 
   var ctl = this;
@@ -19,13 +19,14 @@ function DemoController($log, $q, $interval, $timeout,
   ctl.clock = function() {
     TimeService.clock();
   };
-  
+
   ctl.user = UserService.getUser();
 
   ctl.users = UserService.getUsers();
-  
+
   ctl.setUser = function(u) {
     UserService.setUser(u);
+    $state.reload();
   };
 
 }

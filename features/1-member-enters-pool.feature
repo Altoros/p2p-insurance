@@ -13,4 +13,5 @@ Feature: Member enters a Pool
      When I click "Enter" on a Pool
      And I accept the Pool terms
      Then I should see a success notification
-     And the selected Pool should not be available on the Pools list
+     And I should see the selected pool in the list of Pools I have joined
+     And I should not see the selected pool in the list of available Pools

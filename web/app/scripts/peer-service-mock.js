@@ -10,6 +10,9 @@ function PeerService(cfg, UserService) {
   this.getPools = function () {
     return cfg.pools;
   };
+  this.enter = function (pool) {
+    pool.members.push(UserService.getUser().id);
+  };
 
 }
 
