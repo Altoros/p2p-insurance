@@ -5,7 +5,8 @@ Feature: Member enters a Pool
   Scenario: Member sees a list of available Pools
     Given I have signed in
      When I go to the insurance Pools list page
-     Then I should see a list of available Pools
+     Then I should see a list of Pools I have joined
+     And I should see a list of available Pools
 
   Scenario: Member joins a Pool
     Given I am in the insurance Pools list page

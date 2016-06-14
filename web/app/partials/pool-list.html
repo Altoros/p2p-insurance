@@ -1,0 +1,91 @@
+<h2>My Pools</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Trigger</th>
+      <th>Coverage</th>
+      <th>Premium</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <!-- <td colspan="7"><button class="btn btn-primary" ng-click="poolList.open()">Issue Pool</button></td> -->
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr ng-repeat="pool in poolList.myPools">
+      <td>{{pool.id}}</td>
+      <td>{{pool.name}}</td>
+      <td>{{pool.trigger}}</td>
+      <td>{{pool.coverage | currency}}</td>
+      <td>{{pool.premium | currency}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Others Pools</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Trigger</th>
+      <th>Coverage</th>
+      <th>Premium</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <!-- <td colspan="7"><button class="btn btn-primary" ng-click="poolList.open()">Issue Pool</button></td> -->
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr ng-repeat="pool in poolList.otherPools">
+      <td>{{pool.id}}</td>
+      <td>{{pool.name}}</td>
+      <td>{{pool.trigger}}</td>
+      <td>{{pool.coverage | currency}}</td>
+      <td>{{pool.premium | currency}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <script type="text/ng-template" id="create-pool-modal.html"> -->
+<!-- <div class="modal-header"> -->
+<!-- <h3 class="modal-title">Issue Pool</h3> -->
+<!-- </div> -->
+<!-- <form name="modalForm"> -->
+<!-- <div class="modal-body"> -->
+<!-- <div class="form-group"> -->
+<!-- <label>principal in multiples of $100,000</label> -->
+<!-- <input class="form-control" required="required" -->
+<!-- type="number" min="100000" max="10000000" step="100000" -->
+<!-- ng-model="poolList.pool.principal"> -->
+<!-- </div> -->
+<!-- <div class="form-group"> -->
+<!-- <label>term in months</label> -->
+<!-- <input class="form-control" required="required" -->
+<!-- type="number" min="1" max="60" -->
+<!-- ng-model="poolList.pool.term"> -->
+<!-- </div> -->
+<!-- <div class="form-group"> -->
+<!-- <label>yearly rate in basis points</label> -->
+<!-- <input class="form-control" required="required" -->
+<!-- type="number" min="1" max="10000" -->
+<!-- ng-model="poolList.pool.rate"> -->
+<!-- </div> -->
+<!-- <div class="form-group"> -->
+<!-- <label>catastrophe trigger</label> -->
+<!-- <select class="form-control" -->
+<!-- ng-model="poolList.pool.trigger" ng-options="o for o in poolList.triggers"></select> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="modal-footer"> -->
+<!-- <button class="btn btn-primary" type="button" -->
+<!-- ng-click="poolList.ok()" ng-disabled="modalForm.$invalid">Issue</button> -->
+<!-- <button class="btn btn-warning" type="button" ng-click="poolList.cancel()">Cancel</button> -->
+<!-- </div> -->
+<!-- </form> -->
+<!-- </script> -->
