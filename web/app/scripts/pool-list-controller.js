@@ -6,22 +6,22 @@
 function PoolListController($scope, $interval, $uibModal, Notification, PeerService, UserService) {
   var ctl = this;
   ctl.openEnterPoolModal = openEnterPoolModal;
+  ctl.openInsurePoolModal = openInsurePoolModal;
   ctl.cancel = cancel;
   ctl.create = create;
-
-  var currentUserId = UserService.getUser().id;
 
   $scope.$on('$viewContentLoaded', getPools);
 
   $interval(getPools, 1000);
 
   function getPools() {
+    ctl.currentUser = UserService.getUser();
     var pools = PeerService.getPools();
     ctl.myPools = pools.filter(function (pool) {
-      return pool.members.indexOf(currentUserId) !== -1;
+      return pool.members.indexOf(ctl.currentUser.id) !== -1;
     });
     ctl.otherPools = pools.filter(function (pool) {
-      return pool.members.indexOf(currentUserId) === -1;
+      return pool.members.indexOf(ctl.currentUser.id) === -1;
     });
   }
 
@@ -40,6 +40,24 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
       .then(function (pool) {
         PeerService.enterPool(pool);
         Notification.success('You successfully joined ' + pool.name);
+      });
+  }
+
+  function openInsurePoolModal(pool) {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'insure-pool-modal.html',
+      controller: 'InsurePoolModalController as insurePool',
+      resolve: {
+        pool: function () {
+          return pool;
+        }
+      }
+    });
+
+    modalInstance.result
+      .then(function (pool) {
+        PeerService.insurePool(pool);
+        Notification.success('You successfully insured ' + pool.name);
       });
   }
 
@@ -83,7 +101,16 @@ function CreatePoolModalController($scope, $uibModalInstance, cfg) {
   };
 }
 
+function InsurePoolModalController($scope, $uibModalInstance, pool) {
+  this.pool = pool;
+
+  this.insure = function (pool) {
+    $uibModalInstance.close(pool);
+  };
+}
+
 angular.module('app')
   .controller('PoolListController', PoolListController)
   .controller('EnterPoolModalController', EnterPoolModalController)
-  .controller('CreatePoolModalController', CreatePoolModalController);
+  .controller('CreatePoolModalController', CreatePoolModalController)
+  .controller('InsurePoolModalController', InsurePoolModalController);
