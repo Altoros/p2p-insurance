@@ -1,59 +1,58 @@
-<h2>My Pools</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Trigger</th>
-      <th>Coverage</th>
-      <th>Premium</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <!-- <td colspan="7"><button class="btn btn-primary" ng-click="poolList.open()">Issue Pool</button></td> -->
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr ng-repeat="pool in poolList.myPools">
-      <td>{{pool.id}}</td>
-      <td>{{pool.name}}</td>
-      <td>{{pool.trigger}}</td>
-      <td>{{pool.coverage | currency}}</td>
-      <td>{{pool.premium | currency}}</td>
-    </tr>
-  </tbody>
-</table>
+<div ng-if="poolList.myPools.length">
+  <h2>My Pools</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Trigger</th>
+        <th>Coverage</th>
+        <th>Premium</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td colspan="7"><button class="btn btn-primary pull-right" ng-click="poolList.create()">Create Pool</button></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="pool in poolList.myPools">
+        <td>{{pool.id}}</td>
+        <td>{{pool.name}}</td>
+        <td>{{pool.trigger}}</td>
+        <td>{{pool.coverage | currency}}</td>
+        <td>{{pool.premium | currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<h2>Others Pools</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Trigger</th>
-      <th>Coverage</th>
-      <th>Premium</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <!-- <td colspan="7"><button class="btn btn-primary" ng-click="poolList.open()">Issue Pool</button></td> -->
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr ng-repeat="pool in poolList.otherPools">
-      <td>{{pool.id}}</td>
-      <td>{{pool.name}}</td>
-      <td>{{pool.trigger}}</td>
-      <td>{{pool.coverage | currency}}</td>
-      <td>{{pool.premium | currency}}</td>
-      <td>
-        <a href="" ng-click="poolList.openEnerPoolModal(pool)">Enter</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div ng-if="poolList.otherPools.length">
+  <h2>Others Pools</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Trigger</th>
+        <th>Coverage</th>
+        <th>Premium</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="pool in poolList.otherPools">
+        <td>{{pool.id}}</td>
+        <td>{{pool.name}}</td>
+        <td>{{pool.trigger}}</td>
+        <td>{{pool.coverage | currency}}</td>
+        <td>{{pool.premium | currency}}</td>
+        <td>
+          <a href="" ng-click="poolList.openEnterPoolModal(pool)">Enter</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <script type="text/ng-template" id="enter-pool-modal.html">
   <div class="modal-header">
@@ -66,9 +65,40 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem sunt reiciendis ab suscipit impedit officiis? Sit unde quos modi voluptatem eveniet, maiores earum, magni. Inventore nihil praesentium dolore laboriosam quas.
       </p>
       <div class="modal-footer">
-      <button class="btn btn-primary" type="button" ng-click="enterPool.enter(enterPool.pool)">Enter</button>
+        <button class="btn btn-primary" type="button" ng-click="enterPool.enter(enterPool.pool)">Enter</button>
         <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
       </div>
+    </div>
+  </form>
+</script>
+
+
+<script type="text/ng-template" id="create-pool-modal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Create Pool</h3>
+  </div>
+  <div class="modal-body">
+    <form name="modalForm">
+      <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" required="required" type="text" ng-model="createPool.pool.name" />
+      </div>
+      <div class="form-group">
+        <label>Trigger</label>
+        <select class="form-control" ng-model="createPool.pool.trigger" ng-options="o for o in createPool.triggers"></select>
+      </div>
+      <div class="form-group">
+        <label>Coverage</label>
+        <input class="form-control" required="required" type="number" min="0" ng-model="createPool.pool.coverage">
+      </div>
+      <div class="form-group">
+        <label>Premium</label>
+        <input class="form-control" required="required" type="number" min="0" ng-model="createPool.pool.premium">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="createPool.create(createPool.pool)" ng-disabled="modalForm.$invalid">Create</button>
+      <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
     </div>
   </form>
 </script>

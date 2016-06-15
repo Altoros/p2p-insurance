@@ -38,4 +38,5 @@ angular.module('config', [])
       premium: 300,
       members: ['member1', 'member2']
     }],
+    triggers: ['hurricane 2 FL', 'earthquake 5 CA'],
   });

@@ -5,16 +5,17 @@
  */
 function PoolListController($scope, $interval, $uibModal, Notification, PeerService, UserService) {
   var ctl = this;
-  ctl.openEnerPoolModal = openEnerPoolModal;
+  ctl.openEnterPoolModal = openEnterPoolModal;
   ctl.cancel = cancel;
+  ctl.create = create;
+
+  var currentUserId = UserService.getUser().id;
 
   $scope.$on('$viewContentLoaded', getPools);
 
   $interval(getPools, 1000);
 
   function getPools() {
-    var currentUserId = UserService.getUser().id;
-
     var pools = PeerService.getPools();
     ctl.myPools = pools.filter(function (pool) {
       return pool.members.indexOf(currentUserId) !== -1;
@@ -24,7 +25,7 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
     });
   }
 
-  function openEnerPoolModal(pool) {
+  function openEnterPoolModal(pool) {
     var modalInstance = $uibModal.open({
       templateUrl: 'enter-pool-modal.html',
       controller: 'EnterPoolModalController as enterPool',
@@ -37,7 +38,7 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
 
     modalInstance.result
       .then(function (pool) {
-        PeerService.enter(pool);
+        PeerService.enterPool(pool);
         Notification.success('You successfully joined ' + pool.name);
       });
   }
@@ -46,17 +47,43 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
     $uibModalInstance.dismiss('cancel');
   }
 
+  function create() {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'create-pool-modal.html',
+      controller: 'CreatePoolModalController as createPool'
+    });
 
+    modalInstance.result
+      .then(function (pool) {
+        PeerService.createPool(pool);
+        Notification.success('You successfully created and joined ' + pool.name);
+      });
+  }
 }
 
 function EnterPoolModalController($scope, $uibModalInstance, pool) {
   this.pool = pool;
 
-  this.enter = function () {
+  this.enter = function (pool) {
+    $uibModalInstance.close(pool);
+  };
+}
+
+function CreatePoolModalController($scope, $uibModalInstance, cfg) {
+  this.triggers = cfg.triggers;
+  this.pool = {
+    name: null,
+    coverage: null,
+    premium: null,
+    trigger: this.triggers[0]
+  };
+
+  this.create = function (pool) {
     $uibModalInstance.close(pool);
   };
 }
 
 angular.module('app')
   .controller('PoolListController', PoolListController)
-  .controller('EnterPoolModalController', EnterPoolModalController);
+  .controller('EnterPoolModalController', EnterPoolModalController)
+  .controller('CreatePoolModalController', CreatePoolModalController);

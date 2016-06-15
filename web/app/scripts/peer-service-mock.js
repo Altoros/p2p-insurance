@@ -10,8 +10,14 @@ function PeerService(cfg, UserService) {
   this.getPools = function () {
     return cfg.pools;
   };
-  this.enter = function (pool) {
+  this.enterPool = function (pool) {
     pool.members.push(UserService.getUser().id);
+  };
+  this.createPool = function (pool) {
+    pool.members = [];
+    pool.members.push(UserService.getUser().id);
+    pool.id = pool.name + Math.random();
+    cfg.pools.push(pool);
   };
 
 }
