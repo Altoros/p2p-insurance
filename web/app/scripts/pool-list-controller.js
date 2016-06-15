@@ -9,6 +9,8 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
   ctl.openInsurePoolModal = openInsurePoolModal;
   ctl.cancel = cancel;
   ctl.create = create;
+  ctl.simulateMoneyTransfer = simulateMoneyTransfer;
+  ctl.simulateInsuranceEvent = simulateInsuranceEvent;
 
   $scope.$on('$viewContentLoaded', getPools);
   var currentUser = UserService.getUser();
@@ -77,9 +79,54 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
         Notification.success('You successfully created and joined ' + pool.name);
       });
   }
+
+  function simulateMoneyTransfer() {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'oracle-simulate-transfer-modal.html',
+      controller: 'SimulateTransferModalController as simulateTransfer'
+    });
+
+    modalInstance.result
+      .then(function (transaction) {
+        var foundUsers = UserService.getUsers().filter(function (user) {
+          return user.id === transaction.id;
+        });
+        var foundPools = PeerService.getPools().filter(function (pool) {
+          return pool.id === transaction.id;
+        });
+        var destination = foundUsers[0] || foundPools[0];
+
+        if (destination) {
+          Notification.success('Paying $' + transaction.amount + ' to ' + destination.id + ' for ' + transaction.purpose);
+        } else {
+          Notification.error('Destination ' + transaction.id + ' not found.')
+        }
+      });
+  }
+
+  function simulateInsuranceEvent() {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'oracle-simulate-event-modal.html',
+      controller: 'SimulateInsuranceEventModalController as simulateEvent'
+    });
+
+    modalInstance.result
+      .then(function (event) {
+        var foundPools = PeerService.getPools().filter(function (pool) {
+          return pool.trigger === event.trigger;
+        });
+
+        if (!foundPools.length) {
+          Notification.error('No Pool found for trigger ' + event.trigger);
+        }
+        foundPools.forEach(function (pool) {
+          Notification.success('Paying $' + pool.premium + ' to ' + pool.id + ' for ' + event.trigger);
+        });
+      });
+  }
 }
 
-function EnterPoolModalController($scope, $uibModalInstance, pool) {
+function EnterPoolModalController($uibModalInstance, pool) {
   this.pool = pool;
 
   this.enter = function (pool) {
@@ -87,7 +134,7 @@ function EnterPoolModalController($scope, $uibModalInstance, pool) {
   };
 }
 
-function CreatePoolModalController($scope, $uibModalInstance, cfg) {
+function CreatePoolModalController($uibModalInstance, cfg) {
   this.triggers = cfg.triggers;
   this.pool = {
     name: null,
@@ -98,6 +145,34 @@ function CreatePoolModalController($scope, $uibModalInstance, cfg) {
 
   this.create = function (pool) {
     $uibModalInstance.close(pool);
+  };
+}
+
+
+function SimulateTransferModalController($uibModalInstance, cfg) {
+  this.transferPurposes = cfg.transferPurposes;
+  this.transaction = {
+    id: null,
+    from: null,
+    to: null,
+    amount: null,
+    purpose: this.transferPurposes[0]
+  };
+
+  this.simulate = function (transaction) {
+    $uibModalInstance.close(transaction);
+  };
+}
+
+
+function SimulateInsuranceEventModalController($uibModalInstance, cfg) {
+  this.triggers = cfg.triggers;
+  this.event = {
+    trigger: this.triggers[0]
+  };
+
+  this.simulate = function (event) {
+    $uibModalInstance.close(event);
   };
 }
 
@@ -113,4 +188,6 @@ angular.module('app')
   .controller('PoolListController', PoolListController)
   .controller('EnterPoolModalController', EnterPoolModalController)
   .controller('CreatePoolModalController', CreatePoolModalController)
+  .controller('SimulateTransferModalController', SimulateTransferModalController)
+  .controller('SimulateInsuranceEventModalController', SimulateInsuranceEventModalController)
   .controller('InsurePoolModalController', InsurePoolModalController);

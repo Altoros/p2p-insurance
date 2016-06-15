@@ -19,7 +19,7 @@ angular.module('config', [])
     pools: [{
       id: 'pool1',
       name: 'Pool Name 1',
-      trigger: 'Pool Trigger 1',
+      trigger: 'hurricane 2 FL',
       coverage: 2000,
       premium: 100,
       members: ['member1'],
@@ -27,7 +27,7 @@ angular.module('config', [])
     }, {
       id: 'pool2',
       name: 'Pool Name 2',
-      trigger: 'Pool Trigger 2',
+      trigger: 'hurricane 2 FL',
       coverage: 3000,
       premium: 200,
       members: ['member2'],
@@ -35,11 +35,12 @@ angular.module('config', [])
     }, {
       id: 'pool3',
       name: 'Pool Name 3',
-      trigger: 'Pool Trigger 3',
+      trigger: 'hurricane 2 FL',
       coverage: 4000,
       premium: 300,
       members: ['member1', 'member2'],
       insures: []
     }],
     triggers: ['hurricane 2 FL', 'earthquake 5 CA'],
+    transferPurposes: ['premium', 'insurerPremium', 'payout'],
   });
