@@ -48,6 +48,7 @@
         <td>{{pool.premium | currency}}</td>
         <td>
           <a href="" ng-click="poolList.openEnterPoolModal(pool)">Enter</a>
+          <a href="" ng-if="poolList.currentUser.role == 'insurer'" ng-click="poolList.openInsurePoolModal(pool)">Insure</a>
         </td>
       </tr>
     </tbody>
@@ -68,6 +69,24 @@
         <button class="btn btn-primary" type="button" ng-click="enterPool.enter(enterPool.pool)">Enter</button>
         <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
       </div>
+    </div>
+  </form>
+</script>
+
+<script type="text/ng-template" id="insure-pool-modal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Insure Pool</h3>
+  </div>
+  <form name="modalForm">
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Premium</label>
+        <input class="form-control" required="required" type="number" min="0" ng-model="insurePool.pool.premium">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="insurePool.insure(insurePool.pool)" ng-disabled="modalForm.$invalid">Create</button>
+      <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
     </div>
   </form>
 </script>

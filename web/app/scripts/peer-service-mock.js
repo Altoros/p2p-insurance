@@ -15,9 +15,18 @@ function PeerService(cfg, UserService) {
   };
   this.createPool = function (pool) {
     pool.members = [];
+    pool.insures = [];
     pool.members.push(UserService.getUser().id);
     pool.id = pool.name + Math.random();
     cfg.pools.push(pool);
+  };
+  this.insurePool = function (new_pool, insureId) {
+    return _.forEach(cfg.pools, function (pool) {
+      if (pool.id === new_pool.id) {
+        pool.insures.push(insureId);
+        pool.premium += new_pool.premium;
+      }
+    });
   };
 
 }
