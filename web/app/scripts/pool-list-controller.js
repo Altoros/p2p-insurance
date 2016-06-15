@@ -7,7 +7,6 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
   var ctl = this;
   ctl.openEnterPoolModal = openEnterPoolModal;
   ctl.openInsurePoolModal = openInsurePoolModal;
-  ctl.cancel = cancel;
   ctl.create = create;
   ctl.simulateMoneyTransfer = simulateMoneyTransfer;
   ctl.simulateInsuranceEvent = simulateInsuranceEvent;
@@ -63,10 +62,6 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
       });
   }
 
-  function cancel() {
-    $uibModalInstance.dismiss('cancel');
-  }
-
   function create() {
     var modalInstance = $uibModal.open({
       templateUrl: 'create-pool-modal.html',
@@ -99,7 +94,7 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
         if (destination) {
           Notification.success('Paying $' + transaction.amount + ' to ' + destination.id + ' for ' + transaction.purpose);
         } else {
-          Notification.error('Destination ' + transaction.id + ' not found.')
+          Notification.error('Destination ' + transaction.id + ' not found.');
         }
       });
   }

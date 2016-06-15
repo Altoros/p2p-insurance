@@ -21,8 +21,7 @@ angular.module('app', ['ui.router',
     url: 'pool-list',
     templateUrl: 'partials/pool-list.html',
     controller: 'PoolListController as poolList'
-  })
-
+  });
 })
 .config(function(NotificationProvider) {
     NotificationProvider.setOptions({
