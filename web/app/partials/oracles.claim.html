@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="modal-header">
+      <h3 class="modal-title">Simulate Insurance Event</h3>
+    </div>
+    <div class="modal-body">
+      <form name="modalForm" ng-submit="claimCtrl.simulate(claimCtrl.event)" >
+        <div class="form-group">
+          <div class="form-group">
+            <label>Trigger</label>
+            <select class="form-control" ng-model="claimCtrl.event.trigger" ng-options="o for o in claimCtrl.triggers"></select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Simulate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -28,9 +28,11 @@
     </div><!-- /column -->
     <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading"><i class="fa fa-clock-o"></i> Current Date</div>
-        <div class="panel-body" ng-click="ctl.tick()" ng-dblclick="ctl.clock()">
-          <h5><a href="">{{ctl.now() | date:'longDate'}}</a></h5>
+        <div class="panel-heading"><i class="fa fa-clock-o"></i> Oracles</div>
+        <div class="panel-body">
+          <ul class="list-inline">
+            <li><a target="_blank" ui-sref="oracles"> Oracles </a></li>
+          </ul>
         </div>
       </div>
     </div><!-- /column -->
