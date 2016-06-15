@@ -11,11 +11,11 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
   ctl.create = create;
 
   $scope.$on('$viewContentLoaded', getPools);
-
+  var currentUser = UserService.getUser();
   $interval(getPools, 1000);
 
   function getPools() {
-    ctl.currentUser = UserService.getUser();
+    ctl.currentUser = currentUser;
     var pools = PeerService.getPools();
     ctl.myPools = pools.filter(function (pool) {
       return pool.members.indexOf(ctl.currentUser.id) !== -1;
@@ -56,7 +56,7 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
 
     modalInstance.result
       .then(function (pool) {
-        PeerService.insurePool(pool);
+        PeerService.insurePool(pool, currentUser.id);
         Notification.success('You successfully insured ' + pool.name);
       });
   }

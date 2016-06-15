@@ -22,21 +22,24 @@ angular.module('config', [])
       trigger: 'Pool Trigger 1',
       coverage: 2000,
       premium: 100,
-      members: ['member1']
+      members: ['member1'],
+      insures: []
     }, {
       id: 'pool2',
       name: 'Pool Name 2',
       trigger: 'Pool Trigger 2',
       coverage: 3000,
       premium: 200,
-      members: ['member2']
+      members: ['member2'],
+      insures: []
     }, {
       id: 'pool3',
       name: 'Pool Name 3',
       trigger: 'Pool Trigger 3',
       coverage: 4000,
       premium: 300,
-      members: ['member1', 'member2']
+      members: ['member1', 'member2'],
+      insures: []
     }],
     triggers: ['hurricane 2 FL', 'earthquake 5 CA'],
   });
