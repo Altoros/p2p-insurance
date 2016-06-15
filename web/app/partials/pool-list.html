@@ -47,7 +47,7 @@
         <td>{{pool.coverage | currency}}</td>
         <td>{{pool.premium | currency}}</td>
         <td>
-          <a href="" ng-click="poolList.openEnterPoolModal(pool)">Enter</a>
+          <a href="" ng-if="poolList.currentUser.role == 'member'" ng-click="poolList.openEnterPoolModal(pool)">Enter</a>
           <a href="" ng-if="poolList.currentUser.role == 'insurer'" ng-click="poolList.openInsurePoolModal(pool)">Insure</a>
         </td>
       </tr>
