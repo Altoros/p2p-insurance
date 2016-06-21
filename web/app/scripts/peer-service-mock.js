@@ -26,7 +26,7 @@ function PeerService(cfg, UserService) {
     return _.forEach(cfg.pools, function (pool) {
       if (pool.id === new_pool.id) {
         pool.insures.push(insureId);
-        pool.premium += new_pool.premium;
+        pool.insurePremium += new_pool.insurePremium;
       }
     });
   };

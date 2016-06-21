@@ -23,7 +23,8 @@ angular.module('config', [])
       coverage: 2000,
       premium: 100,
       members: ['member1'],
-      insures: []
+      insures: [],
+      insurePremium: 0
     }, {
       id: 'pool2',
       name: 'Pool Name 2',
@@ -31,7 +32,8 @@ angular.module('config', [])
       coverage: 3000,
       premium: 200,
       members: ['member2'],
-      insures: []
+      insures: [],
+      insurePremium: 0
     }, {
       id: 'pool3',
       name: 'Pool Name 3',
@@ -39,7 +41,8 @@ angular.module('config', [])
       coverage: 4000,
       premium: 300,
       members: ['member1', 'member2'],
-      insures: []
+      insures: [],
+      insurePremium: 0
     }],
     triggers: ['hurricane 2 FL', 'earthquake 5 CA'],
     transferPurposes: ['premium', 'insurerPremium', 'payout'],

@@ -25,7 +25,7 @@
         <td>{{pool.premium | currency}}</td>
         <td>
           <a href="" ng-if="poolList.currentUser.role == 'member'" ng-click="poolList.openEnterPoolModal(pool)">Join</a>
-          <a href="" ng-if="poolList.currentUser.role == 'insurer'" ng-click="poolList.openInsurePoolModal(pool)">Insure</a>
+          <a href="" ng-if="poolList.currentUser.role == 'insurer' && !pool.insured" ng-click="poolList.openInsurePoolModal(pool)">Insure</a>
         </td>
       </tr>
     </tbody>
@@ -34,7 +34,7 @@
 
 <script type="text/ng-template" id="enter-pool-modal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Enter Pool</h3>
+    <h3 class="modal-title">Join Pool</h3>
   </div>
   <form name="modalForm">
     <div class="modal-body">
@@ -43,7 +43,7 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem sunt reiciendis ab suscipit impedit officiis? Sit unde quos modi voluptatem eveniet, maiores earum, magni. Inventore nihil praesentium dolore laboriosam quas.
       </p>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="submit" ng-click="enterPool.enter(enterPool.pool)">Enter</button>
+        <button class="btn btn-primary" type="submit" ng-click="enterPool.enter(enterPool.pool)">Join</button>
         <button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">Cancel</button>
       </div>
     </div>
@@ -58,7 +58,7 @@
     <div class="modal-body">
       <div class="form-group">
         <label>Premium</label>
-        <input class="form-control" required="required" type="number" min="0" ng-model="insurePool.pool.premium">
+        <input class="form-control" required="required" type="number" min="0" ng-model="insurePool.pool.insurePremium">
       </div>
     </div>
     <div class="modal-footer">
