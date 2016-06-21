@@ -1,5 +1,5 @@
-<div ng-if="poolList.myPools.length">
-  <h2>My Pools</h2>
+<div ng-if="poolList.pools.length">
+  <h2>Pools</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -8,6 +8,7 @@
         <th>Trigger</th>
         <th>Coverage</th>
         <th>Premium</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tfoot>
@@ -16,38 +17,14 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr ng-repeat="pool in poolList.myPools">
-        <td>{{pool.id}}</td>
-        <td>{{pool.name}}</td>
-        <td>{{pool.trigger}}</td>
-        <td>{{pool.coverage | currency}}</td>
-        <td>{{pool.premium | currency}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div ng-if="poolList.otherPools.length">
-  <h2>Others Pools</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Trigger</th>
-        <th>Coverage</th>
-        <th>Premium</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="pool in poolList.otherPools">
+      <tr ng-repeat="pool in poolList.pools">
         <td>{{pool.id}}</td>
         <td>{{pool.name}}</td>
         <td>{{pool.trigger}}</td>
         <td>{{pool.coverage | currency}}</td>
         <td>{{pool.premium | currency}}</td>
         <td>
-          <a href="" ng-if="poolList.currentUser.role == 'member'" ng-click="poolList.openEnterPoolModal(pool)">Enter</a>
+          <a href="" ng-if="poolList.currentUser.role == 'member'" ng-click="poolList.openEnterPoolModal(pool)">Join</a>
           <a href="" ng-if="poolList.currentUser.role == 'insurer'" ng-click="poolList.openInsurePoolModal(pool)">Insure</a>
         </td>
       </tr>
@@ -104,11 +81,11 @@
       </div>
       <div class="form-group">
         <label>Trigger</label>
-        <select class="form-control" ng-model="createPool.pool.trigger" ng-options="o for o in createPool.triggers"></select>
+        <input class="form-control" required="required" type="text" ng-model="createPool.pool.trigger" />
       </div>
       <div class="form-group">
         <label>Coverage</label>
-        <input class="form-control" required="required" type="number" min="0" ng-model="createPool.pool.coverage">
+        <input class="form-control" required="required" type="number" min="0" step="100" ng-model="createPool.pool.coverage">
       </div>
       <div class="form-group">
         <label>Premium</label>

@@ -14,11 +14,13 @@ function PeerService(cfg, UserService) {
     pool.members.push(UserService.getUser().id);
   };
   PeerService.createPool = function (pool) {
+    var countPools = cfg.pools.length;
     pool.members = [];
     pool.insures = [];
     pool.members.push(UserService.getUser().id);
-    pool.id = pool.name + Math.random();
+    pool.id = 'pool' + (countPools + 1);
     cfg.pools.push(pool);
+    cfg.triggers.push(pool.trigger);
   };
   PeerService.insurePool = function (new_pool, insureId) {
     return _.forEach(cfg.pools, function (pool) {

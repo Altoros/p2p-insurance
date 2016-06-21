@@ -14,14 +14,8 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
   $interval(getPools, 1000);
 
   function getPools() {
-    ctl.currentUser = currentUser;
     var pools = PeerService.getPools();
-    ctl.myPools = pools.filter(function (pool) {
-      return pool.members.indexOf(ctl.currentUser.id) !== -1;
-    });
-    ctl.otherPools = pools.filter(function (pool) {
-      return pool.members.indexOf(ctl.currentUser.id) === -1;
-    });
+    ctl.pools = pools;
   }
 
   function openEnterPoolModal(pool) {
@@ -82,13 +76,12 @@ function EnterPoolModalController($uibModalInstance, pool) {
   };
 }
 
-function CreatePoolModalController($uibModalInstance, cfg) {
-  this.triggers = cfg.triggers;
+function CreatePoolModalController($uibModalInstance) {
   this.pool = {
     name: null,
     coverage: null,
     premium: null,
-    trigger: this.triggers[0]
+    trigger: null
   };
 
   this.create = function (pool) {
