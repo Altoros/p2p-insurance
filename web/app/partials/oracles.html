@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <h1>CatBond</h1>
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="text-center">CatBond</h1>
     </div>
-    <div class="col-md-4">
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading"><i class="fa fa-clock-o"></i> Current Date</div>
         <div class="panel-body" ng-click="ctl.tick()" ng-dblclick="ctl.clock()">
@@ -11,21 +13,63 @@
         </div>
       </div>
     </div><!-- /column -->
-    <div class="col-md-4">
+  </div><!-- /row -->
+  <div class="row" ng-controller="OraclesPaymentController as paymentCtrl">
+    <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
-        <div class="panel-heading"><i class="fa fa-clock-o"></i> Oracle</div>
-        <div class="panel-body">
-          <ul class="list-inline">
-            <li><a ui-sref="oracles.payment">Payment Oracle</a></li>
-            <li><a ui-sref="oracles.claim">Claim Oracle</a></li>
-          </ul>
+        <div class="panel-heading">
+          <h3 class="panel-title">Simulate Money Transfer</h3>
         </div>
+        <form name="modalForm" ng-submit="paymentCtrl.simulate(paymentCtrl.transaction)" >
+          <div class="panel-body">
+            <div class="form-group">
+              <label>from payment account</label>
+              <input class="form-control" required="required" type="text" ng-model="paymentCtrl.transaction.from" />
+            </div>
+            <div class="form-group">
+              <label>to payment account</label>
+              <input class="form-control" required="required" type="text" ng-model="paymentCtrl.transaction.to" />
+            </div>
+            <div class="form-group">
+              <label>amount</label>
+              <input class="form-control" required="required" type="number" min="0" ng-model="paymentCtrl.transaction.amount">
+            </div>
+            <div class="form-group">
+              <label>purpose</label>
+              <select class="form-control" ng-model="paymentCtrl.transaction.purpose" ng-options="o for o in paymentCtrl.transferPurposes"></select>
+            </div>
+            <div class="form-group">
+              <label>id</label>
+              <input class="form-control" required="required" type="text" ng-model="paymentCtrl.transaction.id" />
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button class="btn btn-primary" type="submit" ng-disabled="modalForm.$invalid">Simulate</button>
+          </div>
+        </form>
+      </div><!-- /column -->
+    </div>
+  </div><!-- /row -->
+  <div class="row" ng-controller="OraclesClaimController as claimCtrl">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Simulate Insurance Event</h3>
+        </div>
+        <form name="modalForm" ng-submit="claimCtrl.simulate(claimCtrl.event)" >
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="form-group">
+                <label>Trigger</label>
+                <select class="form-control" ng-model="claimCtrl.event.trigger" ng-options="o for o in claimCtrl.triggers"></select>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button class="btn btn-primary" type="submit">Simulate</button>
+          </div>
+        </form>
       </div>
-    </div><!-- /column -->
-  </div><!-- /row -->
-  <div class="row">
-    <div class="col-md-12">
-      <ui-view/>
-    </div><!-- /column -->
-  </div><!-- /row -->
+    </div>
+  </div>
 </div>

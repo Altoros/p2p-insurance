@@ -10,15 +10,14 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
   ctl.create = create;
 
   $scope.$on('$viewContentLoaded', getPools);
-  var currentUser = UserService.getUser();
-  ctl.currentUser = currentUser;
+  ctl.currentUser = UserService.getUser();
   $interval(getPools, 1000);
 
   function getPools() {
     var pools = PeerService.getPools();
     pools.forEach(function (pool) {
       pool.insured = true;
-      if (pool.insures.indexOf(currentUser.id) === -1)
+      if (pool.insures.indexOf(UserService.getUser().id) === -1)
         pool.insured = false;
     });
     ctl.pools = pools;
@@ -55,7 +54,7 @@ function PoolListController($scope, $interval, $uibModal, Notification, PeerServ
 
     modalInstance.result
       .then(function (pool) {
-        PeerService.insurePool(pool, currentUser.id);
+        PeerService.insurePool(pool, ctl.currentUser.id);
         Notification.success('You successfully insured ' + pool.name);
       });
   }
