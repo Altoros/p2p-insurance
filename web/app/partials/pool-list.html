@@ -17,7 +17,7 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr ng-repeat="pool in poolList.pools">
+      <tr ng-repeat="pool in poolList.pools track by pool.id">
         <td>{{pool.id}}</td>
         <td>{{pool.name}}</td>
         <td>{{pool.trigger}}</td>
